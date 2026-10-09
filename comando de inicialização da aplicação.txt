@@ -1,0 +1,11 @@
+# Comandos para iniciar a aplicação
+
+npx prisma@5 studio
+
+node server.js
+
+node menu.js
+
+#Inicia o banco de dados com o mysql e prisma
+
+npx prisma migrate dev --name init 

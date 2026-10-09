@@ -1,0 +1,86 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Artista {
+  id    Int    @id @default(autoincrement()) @map("id_art")
+  nome  String @map("nome_artista") @db.VarChar(50)
+  shows Show[]
+
+  @@map("artista")
+}
+
+model Local {
+  id         Int    @id @default(autoincrement()) @map("id_local")
+  nome       String @map("nome_local") @db.VarChar(50)
+  cidade     String @db.VarChar(50)
+  capacidade Int?
+  shows      Show[]
+
+  @@map("local")
+}
+
+model Show {
+  id        Int        @id @default(autoincrement()) @map("id_show")
+  dataHora  DateTime   @map("data_hora")
+  setores   String?
+  
+  artistaId Int        @map("id_art")
+  artista   Artista    @relation(fields: [artistaId], references: [id])
+  
+  localId   Int        @map("id_local")
+  local     Local      @relation(fields: [localId], references: [id])
+  
+  ingressos Ingresso[]
+
+  // Garante a regra de negócio direto no MySQL
+  @@unique([localId, dataHora], name: "show_local_data_hora_unique")
+  @@map("show")
+}
+
+enum Role {
+  ADMIN
+  CLIENTE
+}
+
+enum TipoIngresso {
+  PISTA
+  VIP
+  CAMAROTE
+  CADEIRA_SUPERIOR
+  CADEIRA_INFERIOR
+  ARQUIBANCADA
+}
+
+model Usuario {
+  id        Int        @id @default(autoincrement()) @map("id_usu")
+  nome      String     @db.VarChar(50)
+  username  String     @unique @map("nome_unico") @db.VarChar(50)
+  email     String     @unique @db.VarChar(50)
+  senha     String     @map("senha_hash")
+  role      Role       @default(CLIENTE)
+  criadoEm  DateTime   @default(now())
+  ingressos Ingresso[]
+  
+  @@map("usuario")
+}
+
+model Ingresso {
+  id         Int          @id @default(autoincrement()) @map("id_ingresso")
+  quantidade Int
+  tipo       TipoIngresso
+  
+  usuarioId  Int          
+  usuario    Usuario      @relation(fields: [usuarioId], references: [id])
+  
+  showId     Int          @map("id_show")
+  show       Show         @relation(fields: [showId], references: [id], onDelete: Cascade)
+
+  criadoEm   DateTime     @default(now())
+  @@map("ingresso")
+}
