@@ -13,3 +13,9 @@ yarn-error.log*
 # Builds e arquivos temporários do Prisma
 /prisma/migrations/dev.db*
 /prisma/dev.db
+
+#pasta de banco de dados modelos
+/banco de dados modelos
+/banco de dados modelos/banco
+/banco de dados modelos/banco_conceitual
+/banco de dados modelos/banco_logico
