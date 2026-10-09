@@ -19,3 +19,6 @@ yarn-error.log*
 /banco de dados modelos/banco/
 /banco de dados modelos/banco_conceitual/
 /banco de dados modelos/banco_logico/
+
+#arquivo txt de inicialização pessoal
+comando de inicialização da aplicação.txt
