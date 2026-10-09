@@ -14,8 +14,8 @@ yarn-error.log*
 /prisma/migrations/dev.db*
 /prisma/dev.db
 
-#pasta de banco de dados modelos
-/banco de dados modelos
-/banco de dados modelos/banco
-/banco de dados modelos/banco_conceitual
-/banco de dados modelos/banco_logico
+# Pasta de modelos do banco de dados
+/banco de dados modelos/
+/banco de dados modelos/banco/
+/banco de dados modelos/banco_conceitual/
+/banco de dados modelos/banco_logico/
